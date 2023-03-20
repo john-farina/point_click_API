@@ -1,6 +1,7 @@
 class UsersController < Clearance::UsersController
   skip_before_action :verify_authenticity_token
 
+
   def hello
     render json: "hello world"
   end
@@ -34,7 +35,8 @@ class UsersController < Clearance::UsersController
   private
 
     def user_params
-      # params[Clearance.configuration.user_parameter] || Hash.new
       params.permit(:email, :password)
+
+      # params[Clearance.configuration.user_parameter] || Hash.new
     end
 end
