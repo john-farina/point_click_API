@@ -216,6 +216,7 @@ if (container) {
         };
 
         console.log("cookies: " + document.cookies);
+
         // calling my function
         // ApiLogin(unityInstance);
 

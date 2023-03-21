@@ -8,10 +8,10 @@ Rails.application.routes.draw do
       only: [:edit, :update]
   end
 
-  # Defines the root path route ("/")
-  root "users#index"
+  # Serve Static Build Files
   get '/:file_name', to: 'static_files#serve'
-  # get "/api/is_signed_in", to: "users#show_signed_in"
+
+  root "users#index"
 
   scope '/api' do
     post "/user", to: "users#create"
