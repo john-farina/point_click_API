@@ -8,16 +8,16 @@ Rails.application.routes.draw do
       only: [:edit, :update]
   end
 
-  get "/sign_in" => "clearance/sessions#new", as: "sign_in"
-  get "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
-  get "/sign_up" => "clearance/users#new", as: "sign_up"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
   # Defines the root path route ("/")
-  root "users#hello"
+  root "users#index"
+  get '/:file_name', to: 'static_files#serve'
+  # get "/api/is_signed_in", to: "users#show_signed_in"
 
-  post "/user", to: "users#create"
-  post "/user/sign_in", to: "users#new"
-  get "/api/is_signed_in", to: "users#show_signed_in"
+  scope '/api' do
+    post "/user", to: "users#create"
+    post "/user/sign_in", to: "users#new"
+    get "/sign_out" => "sessions#destroy", as: "sign_out"
 
+    post '/is_signed_in', to: "users#show_signed_in"
+  end
 end

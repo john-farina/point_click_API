@@ -3,14 +3,21 @@ class UsersController < Clearance::UsersController
 
 
   def hello
-    render json: "hello world"
+    
+  end
+
+  def index 
   end
 
   def show_signed_in
+    # byebug
+
     if signed_in?
-      render json: {yes: "Signed in", remember_token: cookies[:remember_token]}
+      @user = current_user
+
+      render json: {signed_in: true, user: @user}
     else
-      render json: "Signed Out"
+      render json: {signed_in: false}
     end
   end
 
@@ -28,7 +35,7 @@ class UsersController < Clearance::UsersController
 
       render json: {user: @user, remember_token: cookies[:remember_token]}
     else
-      render json: "didnt work"
+      render json: {method: "'create' Method", didnt_work: true}
     end
   end
 
