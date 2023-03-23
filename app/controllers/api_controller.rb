@@ -26,6 +26,15 @@ class ApiController < ApplicationController
       @user = current_user
       @wearing = @user.user_wearing
       @inventory = @user.user_inventory
+      @money = @user.user_money
+
+      if params[:username]
+        @user.username = params[:username]
+      end
+
+      if params[:color]
+        @user.color = params[:color]
+      end
 
       if params[:wear_glasses_3D]
         @wearing.glasses_3D = params[:wear_glasses_3D]
@@ -35,11 +44,15 @@ class ApiController < ApplicationController
         @inventory.glasses_3D = params[:inv_glasses_3D]
       end
 
-      if params[:username]
-        @user.username = params[:username]
+      if params[:quarters]
+        @money.quarters = params[:quarters]
       end
 
-      if @user.save && @wearing.save && @inventory.save
+      if params[:tickets]
+        @money.tickets = params[:tickets]
+      end
+
+      if @user.save && @wearing.save && @inventory.save && @money.save
         render json: style_user_info(@user), status: 201
       else
         render json: {error: "ERROR SAVING"}, status: 400

@@ -31,8 +31,9 @@ class UsersController < Clearance::UsersController
 
       @inventory = @user.build_user_inventory
       @wearing = @user.build_user_wearing
+      @money = @user.build_user_money
 
-      if @inventory.save && @wearing.save
+      if @inventory.save && @wearing.save && @money.save
         render json: style_user_info(@user), status: 201
       end
 

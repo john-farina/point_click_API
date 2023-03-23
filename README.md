@@ -3,6 +3,7 @@
 - password
 
 - username:string
+- color:string *{ "blue", "red", "green", etc. }*
 - wearing { glasses_3D:bool, etc. }
 - inventory { glasses_3D:bool, etc. }
 - money { quarters:num, tickets:num }
