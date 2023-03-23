@@ -19,5 +19,7 @@ Rails.application.routes.draw do
     get "/sign_out" => "sessions#destroy", as: "sign_out"
 
     post '/is_signed_in', to: "users#show_signed_in"
+    post '/user/info', to: "api#get_player_info"
+    post '/user/update' => "api#update_player_info"
   end
 end

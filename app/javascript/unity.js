@@ -7,6 +7,7 @@ var warningBanner = document.querySelector("#unity-warning");
 const redBtn = document.querySelector("#redBtn");
 let savedFunction;
 let clicked = false;
+import { ApiController, isSignedInAPI } from "./ApiScripts";
 
 // Shows a temporary message banner/ribbon for a few seconds, or
 // a permanent error message on top of the canvas if type=='error'.
@@ -14,6 +15,7 @@ let clicked = false;
 // Modify or remove this function to customize the visually presented
 // way that non-critical warnings and error messages are presented to the
 // user.
+
 if (container) {
   function unityShowBanner(msg, type) {
     function updateBannerVisibility() {
@@ -35,15 +37,17 @@ if (container) {
     updateBannerVisibility();
   }
 
-  var buildUrl = "assets/javascript/Build";
-  var loaderUrl = "/PointClickSocialNew.loader.js";
+  const fileName = "PointClickSocialNew";
+
+  var loaderUrl = `/${fileName}.loader.js`;
+
   var config = {
-    dataUrl: "/PointClickSocialNew.data",
-    frameworkUrl: "/PointClickSocialNew.framework.js",
-    codeUrl: "/PointClickSocialNew.wasm",
+    dataUrl: `/${fileName}.data`,
+    frameworkUrl: `/${fileName}.framework.js`,
+    codeUrl: `/${fileName}.wasm`,
     streamingAssetsUrl: "StreamingAssets",
-    companyName: "DefaultCompany",
-    productName: "PointClickSocialGame",
+    companyName: "John Farina",
+    productName: "Point Click Social",
     productVersion: "1.0",
     showBanner: unityShowBanner,
   };
@@ -80,125 +84,7 @@ if (container) {
 
   loadingBar.style.display = "block";
 
-  let testPlayerData = {
-    username: "johnny",
-    inventory: {
-      glasses_3D: true,
-      chain_gold: false,
-      striped_sweater: false,
-    },
-    wearing: {
-      glasses_3D: true,
-      chaing_gold: false,
-      striped_sweater: false,
-    },
-    money: {
-      quarters: 10,
-      tickets: 0,
-    },
-  };
-  const jsonString = JSON.stringify(testPlayerData.inventory);
-
   ////// MY FUNCTION //////
-
-  function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  }
-
-  function setCookie(name, value, days) {
-    var expires = "";
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
-  }
-
-  const apiUrl = "/api/";
-
-  function isSignedInAPI() {
-    const myHeaders = new Headers();
-    myHeaders.append("Set-Cookie", document.cookies);
-
-    fetch(apiUrl + "is_signed_in", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({ cookie: document.cookie }),
-      headers: {
-        "Content-Type": "application/json",
-        "Set-Cookie": document.cookie,
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("cookies: " + document.cookies);
-        console.log(response);
-        console.log(getCookie("remember_token"));
-      });
-  }
-
-  function randomNumString() {
-    let string = "";
-    for (let i = 0; i < 10; i++) {
-      string += Math.floor((Math.random() * 100) / 2);
-    }
-    return string;
-  }
-
-  async function postUser() {
-    let string = randomNumString();
-    let email = `${string}@gmail.com`;
-    let password = "foobar";
-    let params = `email=${email}&password=${password}`;
-    let options = {
-      method: "POST",
-      credentials: "same-origin",
-      headers: new Headers({
-        "Content-Type": "application/x-www-form-urlencoded",
-      }),
-      body: params,
-    };
-
-    await fetch(apiUrl + "user", options)
-      .then((response) => response.json())
-      .then((response) => {
-        let userInfo = response.user;
-
-        if (userInfo) {
-          console.log("I SIGNED UP A USER I THINK");
-          console.log(userInfo);
-          setCookie("remember_token", userInfo.remember_token, 20);
-          console.log("cookies: " + document.cookie);
-        }
-      });
-
-    // isSignedInAPI();
-  }
-
-  function ApiLogin(unityInstance) {
-    unityInstance.SendMessage("LoginAPIController", "TintRed");
-
-    clicked = true;
-    postUser();
-    // isSignedInAPI();
-    console.log("i ran");
-
-    unityInstance.SendMessage(
-      "LoginAPIController",
-      "SetString",
-      "then the string i wanna pass through"
-    );
-
-    unityInstance.SendMessage("LoginAPIController", "TestJson", jsonString);
-  }
 
   ////// END //////
 
@@ -217,8 +103,9 @@ if (container) {
 
         console.log("cookies: " + document.cookies);
 
-        // calling my function
-        ApiLogin(unityInstance);
+        //////// calling my function
+        ApiController(unityInstance);
+        /////////////////////////////
 
         savedFunction = (color) =>
           unityInstance.SendMessage("LoginAPIController", "Tint" + color);

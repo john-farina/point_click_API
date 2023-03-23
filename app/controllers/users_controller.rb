@@ -1,12 +1,8 @@
 class UsersController < Clearance::UsersController
   skip_before_action :verify_authenticity_token
+  include ApiHelper
 
-
-  def hello
-    
-  end
-
-  def index 
+  def index
   end
 
   def show_signed_in
@@ -15,27 +11,33 @@ class UsersController < Clearance::UsersController
     if signed_in?
       @user = current_user
 
-      render json: {signed_in: true, user: @user}
+      render json: {signed_in: true, user: @user}, status: 200
     else
-      render json: {signed_in: false}
+      render json: {signed_in: false}, status: 200
     end
   end
 
   def new
     @user = user_from_params
 
-    render json: {user: @user, remember_token: cookies[:remember_token]}
+    render json: style_user_info(@user), status: 200
   end
 
   def create
     @user = user_from_params
-    # byebug
+
     if @user.save
       sign_in @user
 
-      render json: {user: @user, remember_token: cookies[:remember_token]}
+      @inventory = @user.build_user_inventory
+      @wearing = @user.build_user_wearing
+
+      if @inventory.save && @wearing.save
+        render json: style_user_info(@user), status: 201
+      end
+
     else
-      render json: {method: "'create' Method", didnt_work: true}
+      render json: {method: "'create' Method"}, status: 400
     end
   end
 
@@ -43,7 +45,5 @@ class UsersController < Clearance::UsersController
 
     def user_params
       params.permit(:email, :password)
-
-      # params[Clearance.configuration.user_parameter] || Hash.new
     end
 end
