@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_23_144217) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_24_195943) do
   create_table "user_inventories", force: :cascade do |t|
     t.integer "user_id", null: false
     t.boolean "glasses_3D", default: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_23_144217) do
     t.string "remember_token", limit: 128, null: false
     t.string "username"
     t.string "color", default: "red"
+    t.string "location"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token", unique: true

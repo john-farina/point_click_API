@@ -1,3 +1,19 @@
+# Websocket plans
+
+User
++ location:string *"Main District", "FirstShop"*
+
+has_many Messages
+Model Message text:string user:belongs_to
+
+has_one Position
+Model Position x:integer y:integer user:belongs_to
+
+Channel Message
+Channel Position
+
+setUp apis which i have no clue how lol
+
 ## Player/User
 - email
 - password
