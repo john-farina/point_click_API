@@ -4,15 +4,20 @@ class MessageChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
+
   end
 
   def receive(data)
     data['user'] = current_user
+    data['current_location'] = current_user.location
 
-    ActionCable.server.broadcast(
-      current_user.location + "_messages",
-      data
-    )
+   # specific channel for the user's location
+   stream_from "#{current_user.location}_messages"
+
+   # send message to the specific channel for location
+   ActionCable.server.broadcast(
+     "#{current_user.location}_messages",
+     data
+   )
   end
 end

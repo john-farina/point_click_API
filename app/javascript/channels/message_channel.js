@@ -1,6 +1,6 @@
-import consumer from "channels/consumer"
+import consumer from "channels/consumer";
 
-consumer.subscriptions.create("MessageChannel", {
+const messageChannel = consumer.subscriptions.create("MessageChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -10,6 +10,14 @@ consumer.subscriptions.create("MessageChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
-  }
+    console.log(data);
+  },
+});
+
+document.addEventListener("click", (e) => {
+  const message = {
+    body: "Hello Wow",
+  };
+
+  messageChannel.send({ messages: message });
 });

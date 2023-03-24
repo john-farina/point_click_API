@@ -9,6 +9,7 @@ module ApiHelper
         id: user.id,
         username: user.username,
         color: user.color,
+        remember_token: user.remember_token,
         created_at: user.created_at,
         inventory: {
           glasses_3D: @inventory.glasses_3D,
