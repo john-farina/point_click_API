@@ -3,6 +3,7 @@ class ApiController < ApplicationController
   include ApiHelper
 
   def get_player_info
+
     if params[:user_id]
       @user = User.find_by(id: params[:user_id])
 
@@ -36,14 +37,6 @@ class ApiController < ApplicationController
         @user.color = params[:color]
       end
 
-      if params[:wear_glasses_3D]
-        @wearing.glasses_3D = params[:wear_glasses_3D]
-      end
-
-      if params[:inv_glasses_3D]
-        @inventory.glasses_3D = params[:inv_glasses_3D]
-      end
-
       if params[:quarters]
         @money.quarters = params[:quarters]
       end
@@ -52,8 +45,24 @@ class ApiController < ApplicationController
         @money.tickets = params[:tickets]
       end
 
-      if @user.save && @wearing.save && @inventory.save && @money.save
-        render json: style_user_info(@user), status: 201
+      if params[:wear_glasses_3D] == true
+        @wearing.glasses_3D = true
+      else
+        @wearing.glasses_3D = false
+      end
+
+      if params[:inv_glasses_3D]
+        @inventory.glasses_3D = params[:inv_glasses_3D]
+      end
+
+      if @user.save
+
+        if @inventory.save && @money.save
+
+          if @wearing.save
+            render json: style_user_info(@user), status: 201
+          end
+        end
       else
         render json: {error: "ERROR SAVING"}, status: 400
       end

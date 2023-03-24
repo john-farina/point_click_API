@@ -45,6 +45,6 @@ class UsersController < Clearance::UsersController
   private
 
     def user_params
-      params.permit(:email, :password)
+      params.permit(:email, :password, :username, :color)
     end
 end
