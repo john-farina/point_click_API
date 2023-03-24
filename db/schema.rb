@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_24_195943) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_24_200713) do
+  create_table "messages", force: :cascade do |t|
+    t.string "message"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.integer "x", default: 0
+    t.integer "y", default: 0
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_positions_on_user_id"
+  end
+
   create_table "user_inventories", force: :cascade do |t|
     t.integer "user_id", null: false
     t.boolean "glasses_3D", default: false
@@ -53,6 +70,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_24_195943) do
     t.index ["remember_token"], name: "index_users_on_remember_token", unique: true
   end
 
+  add_foreign_key "messages", "users"
+  add_foreign_key "positions", "users"
   add_foreign_key "user_inventories", "users"
   add_foreign_key "user_moneys", "users"
   add_foreign_key "user_wearings", "users"
