@@ -14,14 +14,12 @@ const chatChannel = consumer.subscriptions.create("ChatChannel", {
   },
 });
 
-document.addEventListener("click", (e) => {
-  alert("wow");
+// document.addEventListener("click", (e) => {
+//   alert("wow");
 
-  const message = {
-    body: "Hello Wow",
-  };
+//   const message = {
+//     body: "Hello Wow",
+//   };
 
-  chatChannel.send({ message: "hello wow" });
-});
-
-chatChannel.subscribe();
+//   chatChannel.send({ message: "hello wow" });
+// });
