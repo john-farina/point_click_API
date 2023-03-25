@@ -1,8 +1,6 @@
-class MessageChannel < ApplicationCable::Channel
+class ChatChannel < ApplicationCable::Channel
   def subscribed
-    byebug
-
-    stream_from "message"
+    stream_from "ChatChannel"
   end
 
   def unsubscribed
@@ -10,10 +8,8 @@ class MessageChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    byebug
-
     ActionCable.server.broadcast(
-      "message",
+      "ChatChannel",
       data
     )
   end

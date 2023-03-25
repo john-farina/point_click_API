@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       controller: "clearance/passwords",
       only: [:edit, :update]
   end
+
+  # resources :message, only: [:index, :create]
+
   mount ActionCable.server => '/cable'
 
   # Serve Static Build Files

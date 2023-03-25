@@ -1,4 +1,6 @@
-const messageChannel = App.subscriptions.create("message", {
+import consumer from "channels/consumer";
+
+const chatChannel = consumer.subscriptions.create("ChatChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -8,16 +10,18 @@ const messageChannel = App.subscriptions.create("message", {
   },
 
   received(data) {
-    console.log(data);
+    // Called when there's incoming data on the websocket for this channel
   },
 });
 
 document.addEventListener("click", (e) => {
+  alert("wow");
+
   const message = {
     body: "Hello Wow",
   };
 
-  messageChannel.send({ message: "hello wow" });
+  chatChannel.send({ message: "hello wow" });
 });
 
-messageChannel.subscribe();
+chatChannel.subscribe();
