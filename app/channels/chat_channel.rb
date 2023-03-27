@@ -14,7 +14,6 @@ class ChatChannel < ApplicationCable::Channel
         user_id: current_user.id,
         message: data
       }
-
     )
   end
 end
