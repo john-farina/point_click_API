@@ -10,7 +10,11 @@ class ChatChannel < ApplicationCable::Channel
   def receive(data)
     ActionCable.server.broadcast(
       "ChatChannel",
-      data
+      {
+        user_id: current_user.id,
+        message: data
+      }
+
     )
   end
 end

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # resources :message, only: [:index, :create]
 
-  mount ActionCable.server => '/cable'
+  mount ActionCable.server => '/cable/:remember_token'
 
   # Serve Static Build Files
   get '/:file_name', to: 'static_files#serve'

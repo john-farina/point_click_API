@@ -4,14 +4,15 @@ module ApplicationCable
 
     def connect
       self.current_user = find_current_user
-
       reject_unauthorized_connection unless self.current_user
     end
 
     private
 
     def find_current_user
-      if remember_token.present?
+      if request.params[:remember_token]
+        @current_user = user_from_remember_token(request.params[:remember_token])
+      elsif remember_token.present?
         @current_user ||= user_from_remember_token(remember_token)
       end
 

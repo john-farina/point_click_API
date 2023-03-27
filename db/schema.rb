@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_24_200713) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_172156) do
   create_table "messages", force: :cascade do |t|
     t.string "message"
     t.integer "user_id", null: false
@@ -26,6 +26,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_24_200713) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_positions_on_user_id"
+  end
+
+  create_table "user_data", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "username"
+    t.boolean "online", default: true
+    t.string "scene"
+    t.integer "x", default: 0
+    t.integer "y", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_data_on_user_id"
   end
 
   create_table "user_inventories", force: :cascade do |t|
@@ -72,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_24_200713) do
 
   add_foreign_key "messages", "users"
   add_foreign_key "positions", "users"
+  add_foreign_key "user_data", "users"
   add_foreign_key "user_inventories", "users"
   add_foreign_key "user_moneys", "users"
   add_foreign_key "user_wearings", "users"
