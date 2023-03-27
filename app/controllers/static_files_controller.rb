@@ -1,11 +1,21 @@
 class StaticFilesController < ApplicationController
   def serve
-    file_path = File.join(Rails.public_path, params[:file_name])
+    file_path = Rails.root.join('public', params[:file_name])
+    extension = File.extname(params[:file_name])
 
-    if File.exist?(file_path) && !File.directory?(file_path)
-      send_file file_path, disposition: 'inline'
+    case extension
+    when '.wasm'
+      content_type = 'application/wasm'
+    when '.data'
+      content_type = 'application/octet-stream'
+    when '.framework.js'
+      content_type = 'application/javascript'
+    when '.loader.js'
+      content_type = 'application/javascript'
     else
-      render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
+      raise ActionController::RoutingError.new('Not Found')
     end
+
+    send_file(file_path, filename: params[:file_name], disposition: 'inline', type: content_type)
   end
 end

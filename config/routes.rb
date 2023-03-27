@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable/:remember_token'
 
   # Serve Static Build Files
-  get '/:file_name', to: 'static_files#serve'
+  get '/*file_name', to: 'static_files#serve'
 
   root "users#index"
 
