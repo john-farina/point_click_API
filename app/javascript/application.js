@@ -12,7 +12,7 @@ var warningBanner = document.querySelector("#unity-warning");
 const redBtn = document.querySelector("#redBtn");
 let savedFunction;
 let clicked = false;
-import { ApiController, isSignedInAPI } from "./ApiScripts";
+// import { ApiController, isSignedInAPI } from "./ApiScripts";
 
 // Shows a temporary message banner/ribbon for a few seconds, or
 // a permanent error message on top of the canvas if type=='error'.
@@ -109,7 +109,7 @@ if (container) {
         console.log("cookies: " + document.cookies);
 
         //////// calling my function
-        ApiController(unityInstance);
+        // ApiController(unityInstance);
         /////////////////////////////
 
         savedFunction = (color) =>
@@ -127,13 +127,13 @@ if (container) {
     if (clicked) {
       savedFunction("Red");
       clicked = !clicked;
-      isSignedInAPI();
+
       return;
     }
 
     savedFunction("Blue");
     clicked = !clicked;
-    isSignedInAPI();
+
     return;
   });
 }
