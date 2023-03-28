@@ -38,7 +38,8 @@ class UsersChannel < ApplicationCable::Channel
       y: data['y'],
       mouse_x: data['mouse_x'],
       mouse_y: data['mouse_y'],
-      rotation_index: data['rotation_index']
+      rotation_index: data['rotation_index'],
+      is_walking: data['is_walking']
    }
 
     ActionCable.server.broadcast("UsersChannel", {
