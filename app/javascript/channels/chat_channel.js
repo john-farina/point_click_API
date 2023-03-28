@@ -1,4 +1,4 @@
-import consumer from "channels/consumer";
+// import consumer from "channels/consumer";
 
 // const chatChannel = consumer.subscriptions.create("ChatChannel", {
 //   connected() {
@@ -14,10 +14,10 @@ import consumer from "channels/consumer";
 //   },
 // });
 
-document.addEventListener("click", (e) => {
-  const message = {
-    body: "Hello Wow",
-  };
+// document.addEventListener("click", (e) => {
+//   const message = {
+//     body: "Hello Wow",
+//   };
 
-  chatChannel.send({ message: "hello wow", user_id: 84 });
-});
+//   chatChannel.send({ message: "hello wow", user_id: 84 });
+// });

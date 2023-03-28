@@ -1,4 +1,6 @@
+<div class="title">
 <h1>Point Click Social (in RAILS)</h1>
+</div>
 
 <div id="unity-container" class="unity-desktop">
   <canvas id="unity-canvas" width=960 height=600></canvas>
@@ -14,16 +16,13 @@
 
   <div id="unity-footer">
     <div id="unity-webgl-logo"></div>
-    <div id="unity-fullscreen-button"></div>
-    <div id="unity-build-title">Point Click Social</div>
+    <div id="unity-fullscreen-button">FullScreen</div>
+    <div id="unity-build-title"></div>
   </div>
 </div>
-<button id="redBtn">Change Color Square</button>
+
+<%# <button id="redBtn">Change Color Square</button> %>
 
 <% if signed_in? %>
-
 <button type="submit">SignOut</button>
-
-<% else %>
-  <input type="text" name="" id="">
 <% end %>
