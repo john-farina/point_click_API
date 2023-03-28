@@ -31,10 +31,14 @@ class UsersChannel < ApplicationCable::Channel
    new_data =  {
       user_id: current_user.id,
       username: data['username'],
+      color: data['color'],
       online: data['online'],
       scene: data['scene'],
       x: data['x'],
-      y: data['y']
+      y: data['y'],
+      mouse_x: data['mouse_x'],
+      mouse_y: data['mouse_y'],
+      rotation_index: data['rotation_index']
    }
 
     ActionCable.server.broadcast("UsersChannel", {
