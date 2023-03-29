@@ -1,5 +1,11 @@
 <div class="title">
-<h1>Point Click Social (in RAILS)</h1>
+<div class="contents">
+<h1>point click social</h1>
+<% if signed_in? %>
+  <h2>welcome back, <b><%= current_user.username %></b>. <span class="notYou">(Not You? <a href="/api/sign_out">sign_out</a> )</span> </h2>
+<% end %>
+</div>
+
 </div>
 
 <div id="unity-container" class="unity-desktop">
@@ -16,13 +22,9 @@
 
   <div id="unity-footer">
     <div id="unity-webgl-logo"></div>
-    <div id="unity-fullscreen-button">FullScreen</div>
+    <div id="unity-fullscreen-button" class="btn">fullscreen</div>
     <div id="unity-build-title"></div>
   </div>
 </div>
 
 <%# <button id="redBtn">Change Color Square</button> %>
-
-<% if signed_in? %>
-<button type="submit">SignOut</button>
-<% end %>
