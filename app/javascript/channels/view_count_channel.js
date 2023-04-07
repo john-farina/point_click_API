@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   consumer.subscriptions.create("ViewCountChannel", {
     connected() {
       // Called when the subscription is ready for use on the server
+      console.log("View Count Websockets Subscribed");
     },
 
     disconnected() {
@@ -11,6 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     received(data) {
       const viewCount = document.querySelector("#view-count");
+      if (!viewCount) {
+        console.log("#view-count element not found.");
+        return;
+      }
       if (data.count === null || data.count === 0) {
         viewCount.innerHTML = "0 Players";
 
